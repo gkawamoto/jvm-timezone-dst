@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  test:
+    build: test/
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - ./test:/app
+    depends_on:
+      - database
+    links:
+      - database
+  database:
+    image: postgres:9.6
+    environment:
+      TZ: America/Sao_Paulo
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
