@@ -1,12 +1,22 @@
 version: '2'
 
 services:
-  test:
-    build: test/
+  test-new-java:
+    build:
+      context: test/
+      dockerfile: Dockerfile-new-java
     environment:
       TZ: America/Sao_Paulo
-    volumes:
-      - ./test:/app
+    depends_on:
+      - database
+    links:
+      - database
+  test-old-java:
+    build:
+      context: test/
+      dockerfile: Dockerfile-old-java
+    environment:
+      TZ: America/Sao_Paulo
     depends_on:
       - database
     links:
